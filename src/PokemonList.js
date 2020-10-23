@@ -1,7 +1,7 @@
 import React from 'react';
 class PokemonList extends React.Component {
     componentDidMount() {
-        fetch('https://pokemon-academy-api-pbr.herokuapp.com/pokemons/list')
+        fetch('https://pokemon-academi-api-grzegorz.herokuapp.com/pokemons/list')
         .then(response => {
             console.log(response);
         })
