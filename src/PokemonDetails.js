@@ -6,7 +6,7 @@ class PokemonDetails extends React.Component {
     } 
     componentDidMount() {
         const name = this.props.match.params.name;
-        fetch('https://pokemon-academi-api-grzegorz.herokuapp.com/pokemons/${name}')
+        fetch(`https://pokemon-academi-api-grzegorz.herokuapp.com/pokemons/${name}`)
         .then(response => response.json())
         .then(jsonResponse => {
             console.log(jsonResponse);
