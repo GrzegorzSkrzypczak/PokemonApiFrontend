@@ -19,11 +19,11 @@ class PokemonList extends React.Component {
 
     renderList = (pokemonList) => {
         return pokemonList.map((pokemon, index) => {
-            const {name, level, imageUrl } = pokemon;
+            const {name, lvl, imageUrl } = pokemon;
             return <tr key={index}> 
                 <td><img src={imageUrl}/></td>
                 <td><p>{name}</p></td>
-                <td><p>{level}</p></td>
+                <td><p>{lvl}</p></td>
             </tr>
         })
     }
