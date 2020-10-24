@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
+import loadingHOC from './loadingHOC';
 
 class PokemonList extends React.Component {
 
@@ -21,6 +22,7 @@ class PokemonList extends React.Component {
             console.log(jsonResponse);
             const { results, next, prev } = jsonResponse; 
             this.setState({ pokemonList: results, next: next, prev: prev });
+            this.props.changeLoadingIndicator(false);
         })
     }
     onNextButtonClick = () => {
@@ -73,4 +75,4 @@ class PokemonList extends React.Component {
     }
 }
 
-export default withRouter(PokemonList);
+export default loadingHOC(withRouter(PokemonList), 'Loading pokemon list');
