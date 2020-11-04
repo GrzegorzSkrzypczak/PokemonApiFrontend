@@ -55,12 +55,12 @@ class PokemonList extends React.Component {
 
     renderList = (pokemonList) => {
         return pokemonList.map((pokemon, index) => {
-            const { imageUrl, name, level } = pokemon;
+            const { imageUrl, name, base_experience } = pokemon;
             const itemClick = this.onItemClick.bind(this, name);
             return <tr onClick={itemClick} key={index}>
                 <td><img src={imageUrl} /></td>
                 <td><p>{name}</p></td>
-                <td><p>{level}</p></td>
+                <td><p>{base_experience}</p></td>
             </tr>
         })
     }

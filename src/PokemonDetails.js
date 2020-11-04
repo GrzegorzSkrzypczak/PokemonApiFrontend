@@ -24,7 +24,7 @@ class PokemonDetails extends React.Component {
     }
 
     renderPokemon = () => {
-        const { url, name, types, abilities, height, weight } = this.state.pokemonDetails;
+        const { imageUrl, name, types, abilities, height, weight } = this.state.pokemonDetails;
         return (
             <div>
                 <h3>{`name: ${name}`}</h3>
@@ -32,7 +32,7 @@ class PokemonDetails extends React.Component {
                 <h3>{`abilities: ${abilities}`}</h3>
                 <h3>{`height: ${height}`}</h3>
                 <h3>{`weight: ${weight}`}</h3>
-                <img src={url}/>
+                <img src={imageUrl}/>
             </div>
         )
     }
