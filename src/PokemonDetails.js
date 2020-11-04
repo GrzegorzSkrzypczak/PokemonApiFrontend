@@ -18,19 +18,25 @@ class PokemonDetails extends React.Component {
             this.props.changeLoadingIndicator(false);
         })
     }
+
+    onBackButtonClick = () => {
+        this.props.history.goBack();
+    }
+
     renderPokemon = () => {
-        const { image, name, type, ability, hight, waight } = this.state.pokemonDetails;
+        const { url, name, types, abilities, height, weight } = this.state.pokemonDetails;
         return (
             <div>
                 <h3>{`name: ${name}`}</h3>
-                <h3>{`types: ${type}`}</h3>
-                <h3>{`abilities: ${ability}`}</h3>
-                <h3>{`height: ${hight}`}</h3>
-                <h3>{`weight: ${waight}`}</h3>
-                <img src={image}/>
+                <h3>{`types: ${types}`}</h3>
+                <h3>{`abilities: ${abilities}`}</h3>
+                <h3>{`height: ${height}`}</h3>
+                <h3>{`weight: ${weight}`}</h3>
+                <img src={url}/>
             </div>
         )
     }
+
     render() {
         console.log(this.props.getLoadingStatus());
         return (
@@ -42,4 +48,5 @@ class PokemonDetails extends React.Component {
         )
     }
 }
+
 export default loadingHOC(withRouter(PokemonDetails), "Pokemon Details loading!");

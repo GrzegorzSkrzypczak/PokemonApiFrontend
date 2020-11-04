@@ -17,15 +17,30 @@ class PokemonList extends React.Component {
     }
 
     fetchPokemonList = (url) => {
-        fetch(url)
+        const token = localStorage.getItem('token');
+        fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response=>{
+            if(response.status >= 400) {
+                throw new Error("User not authorized!");
+            }
+            return response;
+        })
         .then(response => response.json())
         .then(jsonResponse => {
             console.log(jsonResponse);
             const { results, next, prev } = jsonResponse; 
             this.setState({ pokemonList: results, searchResult: results, next: next, prev: prev });
             this.props.changeLoadingIndicator(false);
+        }).catch(error=>{
+            this.props.history.push({pathname: '/login'})
         })
     }
+
     onNextButtonClick = () => {
         this.fetchPokemonList(this.state.next);
     }
@@ -40,12 +55,12 @@ class PokemonList extends React.Component {
 
     renderList = (pokemonList) => {
         return pokemonList.map((pokemon, index) => {
-            const { imageUrl, name, lvl } = pokemon;
+            const { imageUrl, name, level } = pokemon;
             const itemClick = this.onItemClick.bind(this, name);
             return <tr onClick={itemClick} key={index}>
                 <td><img src={imageUrl} /></td>
                 <td><p>{name}</p></td>
-                <td><p>{lvl}</p></td>
+                <td><p>{level}</p></td>
             </tr>
         })
     }
@@ -58,6 +73,11 @@ class PokemonList extends React.Component {
         </tr>
     }
 
+    logout = () => {
+        localStorage.removeItem('token');
+        window.location.reload(true);
+    }
+
     onSearchInputChange = (pokemonToFind) => {
         const newSearchResult = this.state.pokemonList.filter((pokemonItem)=>{
             return pokemonItem.name.includes(pokemonToFind);
@@ -67,7 +87,6 @@ class PokemonList extends React.Component {
 
     render() {
         window.scrollTo(0, 0)
-        console.log(this.state.searchResult)
         return (
             <div>
                 <h1>Pokemon List:</h1>
@@ -80,6 +99,7 @@ class PokemonList extends React.Component {
                 </table>
                 {this.state.prev && <button onClick={this.onPrevButtonClick}>Prev</button>}
                 {this.state.next && <button onClick={this.onNextButtonClick}>Next</button> }
+                <button onClick={this.logout}>Logout</button>
             </div>
         )
     }
